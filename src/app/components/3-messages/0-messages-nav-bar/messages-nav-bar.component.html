@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">    
+    <a class="navbar-brand" routerLink="/">KSJ<br>Messages{{ envName }}</a>
+    
+    <button 
+        class="navbar-toggler navbar-toggler-right"
+        type="button" (click)="toggleCollapse()">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div [ngbCollapse]="showMainNav" class="navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" >
+                <button class="btn btn-outline-primary my-2 my-sm-0" routerLink="/messages/messagescreen" routerLinkActive="active">Message Screen</button>
+            </li>
+            <li class="nav-item" >
+                <button class="btn btn-outline-primary my-2 my-sm-0" routerLink="/messages/messageinput" routerLinkActive="active">Message Input</button>
+            </li>
+            <!-- <li class="nav-item" >
+                <button class="btn btn-outline-primary my-2 my-sm-0" routerLink="/ksj/contactus" routerLinkActive="active">Contact Us</button>
+            </li> -->
+        </ul>
+        <!-- Admin Menus -->
+        <ul class="navbar-nav my-2 my-lg-0">
+            <li class="nav-item" >
+                <button class="btn btn-outline-secondary my-2 my-sm-0" routerLink="/karaoke" routerLinkActive="active">Karaoke Night</button>
+            </li>
+            <li class="nav-item" >
+                <button class="btn btn-outline-danger my-2 my-sm-0" routerLink="/ksj" routerLinkActive="active">Back</button>
+            </li>
+            <li class="nav-item" >
+                <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/settings">Settings</button>
+            </li>
+            <!-- <li class="nav-item" >
+                <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/operator">Event Operator</button>
+            </li>
+            <li class="nav-item" >
+                <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/admin">Site Admin</button>
+            </li> -->
+        </ul>        
+    </div>
+</nav>
+<router-outlet></router-outlet>

@@ -1,0 +1,80 @@
+<div class='container mainform'> <!-- Information -->
+    <h4>Create New Operator</h4>
+    <form [formGroup]='newOperatorForm'>
+        <div class="form-group row"> <!-- User ID -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="userID">User ID : </span>
+                </div>
+                <input type="text" class="form-control" aria-describedby="userID"
+                [class.is-invalid]='(userID.invalid) && userID.touched'
+                [class.is-valid]='(userID.valid) && userID.touched'
+                formControlName='userID' id="userID"
+                placeholder="User ID">
+            </div>
+            <ul *ngIf='(userID.invalid) && userID.touched '> <!-- error messages -->
+                <li *ngIf='userID.errors?.required' class='text-danger'>User ID Is Required</li>
+                <li *ngIf='userID.errors?.minlength || userID.errors?.maxlength' class='text-danger'>User ID need to be between 5 and 15 Characters Long</li>
+            </ul>
+        </div>
+        <div class="form-group row"> <!-- name -->
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <span class="input-group-text" id="name">Name : </span>
+            </div>
+            <input type="text" class="form-control" aria-describedby="name"
+                    [class.is-invalid]='name.invalid && name.touched '
+                    [class.is-valid]='name.valid && name.touched'
+                    formControlName='name' id="name" placeholder="Name">
+        </div>
+        <ul *ngIf='name.invalid && name.touched'> <!-- error messages -->
+            <li *ngIf='name.errors?.required' class='text-danger'>A Name Is Required</li>
+            <li *ngIf='name.errors?.minlength || name.errors?.maxlength' class='text-danger'>Name Should Be Between 5 and 50 Letters Long</li>
+            <li *ngIf='name.errors?.isError' class='text-danger'>Name Should Only Be Letters</li>
+        </ul>
+        </div>            
+        <div class="form-group row"> <!-- password -->
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+            <span class="input-group-text" id="password">Password : </span>
+            </div>
+            <input aria-describedby="password"
+            [class.is-invalid]='password.invalid && password.touched'
+            [class.is-valid]='password.valid && password.touched'
+            formControlName='password' type="text" class="form-control" id="password" placeholder="Password">
+            <div class="input-group-append">
+            <button class="btn btn-outline-success" type="button" [disabled]='generate' (click)='generatePassword();'>Generate</button>
+            </div>
+        </div>
+        <ul *ngIf='password.invalid && password.touched'> <!-- error messages -->
+            <li *ngIf='password.errors?.required' class='text-danger'>A Password Is Required</li>
+            <li *ngIf='password.errors?.minlength || password.errors?.maxlength' class='text-danger'>Password Should Between 8 and 30 Characters Long</li>
+            <li *ngIf='password.errors?.isError' class='text-danger'>Invalid Password</li>
+        </ul>
+        </div>        
+    </form>
+    <h4>Admin Rights</h4>
+    <div class='adminTable'>
+        <div *ngFor='let a of adminSections'>
+            <div class='row header'> {{ a.navBar }} </div>
+            <div class='row'>
+                <div class="col-12 col-sm-3 col-md-4 adminCheckBox" [class.active]='b.value' *ngFor='let b of a.section'>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" [disabled]='b.disabled || processing' [(ngModel)]='b.value'>
+                            <label class="form-check-label"> {{b.name}} </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf='!successMsg && !errorMsg'>
+        <button type="button" class="btn btn-primary btn-lg" [disabled]='processing || !newOperatorForm.valid' (click)='submit();'>Confirm & Create</button>
+        <button type="button" class="btn btn-secondary btn-lg" [disabled]='processing' (click)='cancel()'>Cancel</button> 
+    </div>
+    <div class='messages'> <!-- messages -->
+        <div class="alert alert-success" role="alert" *ngIf='successMsg'>{{ successMsg }}</div>
+        <div class="alert alert-danger" role="alert" *ngIf='errorMsg'>{{ errorMsg }}</div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+.mainform {
+    margin-top: 25px;
+    border: 2px black solid;
+    padding: 15px;
+}
+.mainform h4 {
+    background-color: slategray;
+    padding: 10px;
+    color :red;
+    text-align: center;
+}
+.adminTable {
+    margin:10px;
+}
+.adminTable .header{
+    color: #495057;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    padding: 10px;
+    font-weight: bold;
+}
+.adminCheckBox {
+    padding:.75rem, 0;
+    color:lightgrey;
+}
+.adminCheckBox.active {
+    color:red;
+}
