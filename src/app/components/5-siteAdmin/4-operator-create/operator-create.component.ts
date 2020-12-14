@@ -64,17 +64,18 @@ export class OperatorCreateComponent implements OnInit {
     let Token : any = '00000000000000'.split('');
     this.adminSections.forEach((i:any) => {
       i.section.forEach((j:any) => {
-        if(j.value) Token[j.button]='1';        
+        if(j.value) Token[j.button]='1';
       });
     });
     let newOperatorData:any = {
       userID: (this.userID.value+' ').trim(),
       name: (this.name.value+' ').trim(),
       password:(this.password.value+' ').trim(),
-      token:Token.join("")      
+      token:Token.join("")
     }   
     this._USER.createNewOperator(newOperatorData).subscribe(
       data=>{
+        console.log(data)
         if(!data.success){
           this.errorMsg = data.message;
           setTimeout(()=>{
@@ -82,7 +83,7 @@ export class OperatorCreateComponent implements OnInit {
             this.enableForm();
           }, 2000);
         } else {
-          this.successMsg = 'New Opererator : ' + data.operator.name + ' created.'
+          this.successMsg = 'New Operator : ' + data.user.name + ' created.'
           setTimeout(()=>{
             this.successMsg = '';
             this._ROUTER.navigateByUrl('/admin');

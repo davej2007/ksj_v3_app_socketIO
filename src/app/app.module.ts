@@ -13,10 +13,15 @@ import { KaraokeModule } from './components/2-karaoke/karaoke.module';
 import { MessagesModule } from './components/3-messages/messages.module';
 import { EventOperatorModule } from './components/4-eventOperator/event-operator.module';
 import { SiteAdminModule } from './components/5-siteAdmin/site-admin.module';
+import { DisplayYesNoPipe } from './components/_custom/pipe/display-yes-no.pipe';
+import { DisplayDatePipe } from './components/_custom/pipe/display-date.pipe';
+//Pipes
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DisplayYesNoPipe,
+    DisplayDatePipe
   ],
   imports: [
     BrowserModule,

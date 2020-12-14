@@ -1,1 +1,11 @@
-<p>login works!</p>
+<div class="container">
+    <ksj-logo></ksj-logo>
+    <div class="login">
+        <button type="button" class="folder" [ngClass]="{'active': service}" (click)='service=true'>Sign In</button>
+        <button type="button" class="folder" [ngClass]="{'active': !service}" (click)='service=false'>Register</button>
+        <div class='narrow' [ngSwitch]="service">
+            <login-form *ngSwitchCase='true'></login-form>
+            <registation-form *ngSwitchDefault></registation-form>
+        </div>
+    </div>
+</div>
