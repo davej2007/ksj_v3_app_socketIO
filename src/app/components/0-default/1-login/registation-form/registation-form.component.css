@@ -1,0 +1,13 @@
+.selectors {
+    background-color: white;
+    width: 50%;
+    margin : 0;
+    color:red;
+    padding: 0.4em 2em;
+    border: 2px solid black;
+    font-size: 1.2em;
+}
+.text-primary{
+    background-color: white;
+    border: 1px green solid;
+}

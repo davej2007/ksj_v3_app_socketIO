@@ -25,10 +25,9 @@ imports: [NgbModule, ...],
 **** Generate Components
 ng g m components/1-ksj/ksj --flat --routing
 
-ng g c components/pages/page-not-found --skipTests=true --prefix
-ng g c components/pages/section0/employeeProfile --skipTests=true --prefix
-ng g s components/service/auth --skipTests=true
-ng g pipe components/custom/pipe/display.... --skipTests=true
+ng g c components/0-default/defaultPageNotFound --skipTests=true --prefix
+ng g s components/services/auth --skipTests=true
+ng g pipe components/_custom/pipe/display.... --skipTests=true
 ng s -o ==== ng serve
 ng build --prod ==== ng build
 

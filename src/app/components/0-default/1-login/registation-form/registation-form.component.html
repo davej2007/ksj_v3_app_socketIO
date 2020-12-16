@@ -1,1 +1,90 @@
-<p>registation-form works!</p>
+<form [formGroup]='registrationForm'>
+    <!-- team ID -->
+    <div class="form-group row">
+        <label for="teamID" class="col-sm-3 col-form-label">Team ID :</label>
+        <div class="col-sm-9">
+            <input [class.is-invalid]='(teamID.invalid) && teamID.touched' [class.is-valid]='teamID.valid && teamID.touched'
+            formControlName='teamID' type="text" class="form-control" id="teamID"
+            placeholder="Team ID" (blur)='checkTeamID()'>
+            <ul *ngIf='(teamID.invalid) && teamID.touched'> <!-- error messages -->
+                <li *ngIf='teamID.errors?.required' class='text-danger'>A Team ID Is Required</li>
+                <li *ngIf='teamID.errors?.minlength || teamID.errors?.maxlength' class='text-danger'>The Team ID Should Be Between 5 and 15 Letters Long</li>
+            </ul>
+            <ul *ngIf='(teamID.valid) && teamID.touched'> <!-- Success messages -->
+            <li *ngIf='teamIDValid' class='text-primary'>Team ID Found Please Enter Team's Pin Number To Continue</li>
+            <li *ngIf='!teamIDValid' class='text-primary'>UnUsed Team ID. Please Enter Event ID and Team Pin Number To Allow Others To Join</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Event ID -->
+    <div class="form-group row" *ngIf='!teamIDValid' >
+        <label for="eventID" class="col-sm-3 col-form-label">Event ID :</label>
+        <div class="col-sm-9">
+            <input [class.is-invalid]='eventID.invalid && eventID.touched' [class.is-valid]='eventID.valid && eventID.touched'
+            formControlName='eventID' type="text" class="form-control" id="eventID"
+            placeholder="Event ID" (blur)='checkEventID()'>
+        </div>
+    </div>
+    <!-- team Pin -->
+    <div class="form-group row">
+        <label for="teamPin" class="col-sm-3 col-form-label">Team Pin :</label>
+        <div class="col-sm-9">
+            <input [class.is-invalid]='teamPin.invalid && teamPin.touched' [class.is-valid]='teamPin.valid && teamPin.touched'
+            formControlName='teamPin' type="text" class="form-control" id="teamPin"
+            placeholder="Team Pin">
+        </div>
+    </div>
+    <!-- Event ID -->
+    <div class="form-group row" *ngIf='teamIDValid' >
+        <label for="eventID" class="col-sm-3 col-form-label">Event ID :</label>
+        <div class="col-sm-9">
+            <input [class.is-invalid]='eventID.invalid && eventID.touched' [class.is-valid]='eventID.valid && eventID.touched'
+            formControlName='eventID' type="text" class="form-control" id="eventID"
+            placeholder="Event ID" readonly>
+        </div>
+    </div>
+    <!-- User ID -->
+    <div class="form-group row">
+        <label for="userID" class="col-sm-3 col-form-label">User ID :</label>
+        <div class="col-sm-9">
+            <input [class.is-invalid]='userID.invalid && userID.touched' [class.is-valid]='userID.valid && userID.touched'
+            formControlName='userID' type="text" class="form-control" id="userID"
+            placeholder="User ID">
+        </div>
+    </div>
+    <!-- User Name -->
+    <div class="form-group row">
+        <label for="userName" class="col-sm-3 col-form-label">User's Name :</label>
+        <div class="col-sm-9">
+            <input [class.is-invalid]='userName.invalid && userName.touched' [class.is-valid]='userName.valid && userName.touched'
+            formControlName='userName' type="text" class="form-control" id="userName"
+            placeholder="User's Name">
+        </div>
+    </div>    <!-- User Nick Name -->
+    <div class="form-group row">
+        <label for="userNickname" class="col-sm-3 col-form-label">User's Nick Name :</label>
+        <div class="col-sm-9">
+            <input [class.is-invalid]='userNickname.invalid && userNickname.touched' [class.is-valid]='userNickname.valid && userNickname.touched'
+            formControlName='userNickname' type="text" class="form-control" id="userNickname"
+            placeholder="User's Nick Name">
+        </div>
+    </div>
+    <!-- Password -->
+    <div class="form-group row">
+        <label for="password" class="col-sm-3 col-form-label">Password :</label>
+        <div class="col-sm-9">
+            <input [class.is-invalid]='password.invalid && password.touched' [class.is-valid]='password.valid && password.touched'
+            formControlName='password' type="text" class="form-control" id="password"
+            placeholder="Password">
+            
+        </div>
+    </div>
+</form>
+<div *ngIf='!successMsg && !errorMsg'>
+    <button type="button" class="selectors" [disabled]='!registrationForm.valid || processing' (click)="submit(registrationForm.value)">Register</button>
+    <button type="button" class="selectors" (click)="cancel()">Cancel</button>
+</div>
+<div class='messages'> <!-- messages -->
+    <div class="alert alert-success" role="alert" *ngIf='successMsg'>{{ successMsg }}</div>
+    <div class="alert alert-danger" role="alert" *ngIf='errorMsg'>{{ errorMsg }}</div>
+</div>

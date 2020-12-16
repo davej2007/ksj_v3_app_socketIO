@@ -8,6 +8,7 @@ import { RegistationFormComponent } from './1-login/registation-form/registation
 import { KsjLogoComponent } from './0-ksj-logo/ksj-logo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { authService } from '../services/auth.service';
+import { TeamService } from '../services/team.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { authService } from '../services/auth.service';
     CommonModule,
     FormsModule, ReactiveFormsModule, // Forms
   ],
-  providers:[authService],
+  providers:[authService, TeamService],
   exports: [
     LoginComponent,
     KsjLogoComponent,
