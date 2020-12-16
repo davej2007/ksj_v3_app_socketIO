@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventService } from '../../services/event.service';
-import { ConvertDate, DateValue } from '../../_custom/functions';
+import { CalculateFinishTime, ConvertDate, DateValue } from '../../_custom/functions';
 
 @Component({
   selector: 'event-create',
@@ -30,6 +30,7 @@ export class EventCreateComponent implements OnInit {
     title         : ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
     date          : ['', [Validators.required]],
     startTime     : ['', [Validators.required]],
+    finishTime     : [''],
     duration      : ['', [Validators.required]],
     venue         : ['', [Validators.required]],
     type          : ['', [Validators.required]]
@@ -40,6 +41,7 @@ export class EventCreateComponent implements OnInit {
   get title() { return this.newEventForm.get('title');}
   get date() { return this.newEventForm.get('date');}
   get startTime() { return this.newEventForm.get('startTime');}
+  get finishTime() { return this.newEventForm.get('finishTime');}
   get duration() { return this.newEventForm.get('duration');}
   get venue() { return this.newEventForm.get('venue');}
   get type() { return this.newEventForm.get('type');}
@@ -73,14 +75,13 @@ export class EventCreateComponent implements OnInit {
     this._EVENT.checkEvent(this.eventID.value).subscribe(
       res=>{
         if(res.success){
-          console.log('true',res)
-        } else {
+          console.log('true',res)          
           this.eventError = true;
-          this.eventMessage = 'Event ID Found On Dates : '
-          res.event.forEach(e => {
-            this.eventMessage += ConvertDate(e.date)
-          });
+          this.eventMessage = 'Event '+res.event.title+' Date : '+ res.event.startTime.date
+        } else {
           console.log('false', res)
+          this.eventError = false;
+          this.eventMessage = null
         }
       },
       err => {
@@ -89,6 +90,18 @@ export class EventCreateComponent implements OnInit {
       }
     )
   }
+  calculateFinishTime(date:String, start:String, duration:String){
+    if(date!='' && start!='' && duration!=''){
+      let ft = CalculateFinishTime(date,start,duration);
+      if(ft.value == 0 ){
+        this.finishTime.setValue('')
+      } else {
+        this.finishTime.setValue(ft.date+' @ '+ ft.time)
+      }      
+    } else {      
+      this.finishTime.setValue('')
+    }
+  }
   submit(){
     this.disableForm();
     let newEventData:any = {
@@ -96,8 +109,8 @@ export class EventCreateComponent implements OnInit {
       title: (this.title.value+' ').trim(),
       hostName: (this.hostName.value+' ').trim(),
       venue:(this.venue.value+' ').trim(),
-      date:(DateValue(this.date.value)),
-      startTime:this.startTime.value,
+      startTime:CalculateFinishTime(this.date.value,this.startTime.value,'00:00'),
+      finishTime:CalculateFinishTime(this.date.value,this.startTime.value,this.duration.value),
       duration:this.duration.value,
       type:this.type.value,
       songBook:this.songBook,
@@ -113,6 +126,7 @@ export class EventCreateComponent implements OnInit {
             this.enableForm();
           }, 2000);
         } else {
+          console.log(data)
           this.successMsg = 'New Event : ' + data.event.eventID + ' created.'
           setTimeout(()=>{
             this.successMsg = '';

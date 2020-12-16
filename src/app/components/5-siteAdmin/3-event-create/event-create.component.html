@@ -1,114 +1,92 @@
 <div class='container mainform'> <!-- Information -->
-    <h4>Create New Event/event</h4>
+    <h4>Create New Event</h4>
     <form [formGroup]='newEventForm'>
-        <div class="form-group row"> <!-- Event ID -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="eventID">Event ID : </span>
-                </div>
-                <input type="text" class="form-control" aria-describedby="eventID"
-                [class.is-invalid]='(eventID.invalid) && eventID.touched'
-                [class.is-valid]='(eventID.valid) && eventID.touched'
-                formControlName='eventID' id="eventID"
-                placeholder="Event ID" (blur)='checkeventID()'>
-            </div>
-            <ul *ngIf='(eventID.invalid || eventError) && eventID.touched '> <!-- error messages -->
+        <div class="form-row"><!-- Event ID Title -->
+            <div class="col-md-4 mb-3"> <!-- Event ID -->
+              <label for="eventID">Event ID</label>
+              <input type="text" class="form-control" aria-describedby="eventID" id="eventID" 
+              [class.is-invalid]='(eventID.invalid || eventError) && eventID.touched '
+              [class.is-valid]='(eventID.valid && !eventError ) && eventID.touched'
+              formControlName='eventID' placeholder="Event ID" (blur)='checkeventID()'>
+              <ul *ngIf='(eventID.invalid || eventError) && eventID.touched '> <!-- error messages -->
                 <li *ngIf='eventID.errors?.required' class='text-danger'>Event ID Is Required</li>
                 <li *ngIf='eventID.errors?.minlength || eventID.errors?.maxlength' class='text-danger'>Event ID need to be between 5 and 15 Characters Long</li>
                 <li *ngIf='eventError' class='text-danger'>{{ eventMessage }}</li>
             </ul>
-        </div>
-        <div class="form-group row"> <!-- Title -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                <span class="input-group-text" id="title">Event Title : </span>
-                </div>
-                <input type="text" class="form-control" aria-describedby="title"
-                        [class.is-invalid]='title.invalid && title.touched '
-                        [class.is-valid]='title.valid && title.touched'
-                        formControlName='title' id="title" placeholder="Event Title">
             </div>
-            <ul *ngIf='title.invalid && title.touched'> <!-- error messages -->
+            
+            <div class="col-md-8 mb-3"> <!-- Title -->
+              <label for="title">Event Title</label>
+              <input type="text" class="form-control" aria-describedby="title" id="title" 
+              [class.is-invalid]='title.invalid && title.touched '
+              [class.is-valid]='title.valid && title.touched'
+              formControlName='title' placeholder="Event Title">
+              <ul *ngIf='title.invalid && title.touched'> <!-- error messages -->
                 <li *ngIf='title.errors?.required' class='text-danger'>A Title Is Required</li>
                 <li *ngIf='title.errors?.minlength || title.errors?.maxlength' class='text-danger'>Title Should Be Between 5 and 50 Letters Long</li>
             </ul>
             </div>
-        <div class="form-group row"> <!-- Host Name -->
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-            <span class="input-group-text" id="hostName">Host's Name : </span>
-            </div>
-            <input type="text" class="form-control" aria-describedby="hostName"
-                    [class.is-invalid]='hostName.invalid && hostName.touched '
-                    [class.is-valid]='hostName.valid && hostName.touched'
-                    formControlName='hostName' id="hostName" placeholder="Host's Name">
         </div>
-        <ul *ngIf='hostName.invalid && hostName.touched'> <!-- error messages -->
-            <li *ngIf='hostName.errors?.required' class='text-danger'>A Name Is Required</li>
-            <li *ngIf='hostName.errors?.minlength || hostName.errors?.maxlength' class='text-danger'>Name Should Be Between 5 and 50 Letters Long</li>
-        </ul>
-        </div>
-        <div class="form-group row"> <!-- Date -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                <span class="input-group-text" id="date">Date : </span>
-                </div>
-                <input aria-describedby="date"
-                [class.is-invalid]='date.invalid && date.touched'
-                [class.is-valid]='date.valid && date.touched'
-                formControlName='date' type="date" class="form-control" id="date">
+        
+        <div class="form-row"><!-- hostName Venue -->
+            <div class="col-md-6 mb-3"> <!-- Host Name -->
+                <label for="hostName">Host's Name</label>
+                <input type="text" class="form-control" aria-describedby="hostName" id="hostName" 
+                [class.is-invalid]='hostName.invalid && hostName.touched '
+                [class.is-valid]='hostName.valid && hostName.touched'
+                formControlName='hostName'  placeholder="Host's Name">
+                <ul *ngIf='hostName.invalid && hostName.touched'> <!-- error messages -->
+                    <li *ngIf='hostName.errors?.required' class='text-danger'>A Name Is Required</li>
+                    <li *ngIf='hostName.errors?.minlength || hostName.errors?.maxlength' class='text-danger'>Name Should Be Between 5 and 50 Letters Long</li>
+                </ul>
             </div>
-            <ul *ngIf='date.invalid && date.touched'> <!-- error messages -->
-                <li *ngIf='date.errors?.required' class='text-danger'>A Date Is Required</li>
-            </ul>
-        </div>           
-        <div class="form-group row"> <!-- Start Time -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                <span class="input-group-text" id="startTime">Start Time : </span>
-                </div>
-                <input aria-describedby="startTime"
-                [class.is-invalid]='startTime.invalid && startTime.touched'
-                [class.is-valid]='startTime.valid && startTime.touched'
-                formControlName='startTime' type="time" class="form-control" id="startTime">
-            </div>
-            <ul *ngIf='startTime.invalid && startTime.touched'> <!-- error messages -->
-                <li *ngIf='startTime.errors?.required' class='text-danger'>A Date Is Required</li>
-            </ul>
-        </div>           
-        <div class="form-group row"> <!-- Duration -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                <span class="input-group-text" id="duration">Duration : </span>
-                </div>
-                <input aria-describedby="duration"
-                [class.is-invalid]='duration.invalid && duration.touched'
-                [class.is-valid]='duration.valid && duration.touched'
-                formControlName='duration' type="time" class="form-control" id="duration">
-            </div>
-            <ul *ngIf='duration.invalid && duration.touched'> <!-- error messages -->
-                <li *ngIf='duration.errors?.required' class='text-danger'>A Duration Is Required</li>
-            </ul>
-        </div>           
-        <div class="form-group row"> <!-- Venue -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="venue">Venue : </span>
-                </div>
-                <input aria-describedby="venue"
+            <div class="col-md-6 mb-3"> <!-- Venue -->
+                <label for="venue">Venue :</label>
+                <input type="text" class="form-control" aria-describedby="venue" id="venue" 
                 [class.is-invalid]='venue.invalid && venue.touched'
                 [class.is-valid]='venue.valid && venue.touched'
-                formControlName='venue' type="text" class="form-control" id="venue" placeholder="Venue">
+                formControlName='venue' placeholder="Event Venue">
+                <ul *ngIf='venue.invalid && venue.touched'> <!-- error messages -->
+                    <li *ngIf='venue.errors?.required' class='text-danger'>A Venue Is Required</li>
+                </ul>
             </div>
-            <ul *ngIf='venue.invalid && venue.touched'> <!-- error messages -->
-                <li *ngIf='venue.errors?.required' class='text-danger'>A Venue Is Required</li>
-            </ul>
         </div>
-        <div class="form-group row"> <!-- event Type -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="eventType">Event Type : </span>
-                </div>
+
+        <div class="form-row"><!-- Date StartTime Duration -->
+            <div class="col-md-4 mb-3"> <!-- Date -->
+                <label for="date">Date :</label>
+                <input type="date" class="form-control" aria-describedby="date" id="date" 
+                    [class.is-invalid]='date.invalid && date.touched'
+                    [class.is-valid]='date.valid && date.touched'
+                    formControlName='date' (blur)='calculateFinishTime(date.value, startTime.value, duration.value)'>
+                <ul *ngIf='date.invalid && date.touched'> <!-- error messages -->
+                    <li *ngIf='date.errors?.required' class='text-danger'>A Date Is Required</li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-3"> <!-- Start Time -->
+                <label for="startTime">Start Time :</label>
+                <input type="time" class="form-control" aria-describedby="startTime" id="startTime" 
+                    [class.is-invalid]='startTime.invalid && startTime.touched'
+                    [class.is-valid]='startTime.valid && startTime.touched'
+                    formControlName='startTime' (blur)='calculateFinishTime(date.value, startTime.value, duration.value)'>
+                <ul *ngIf='startTime.invalid && startTime.touched'> <!-- error messages -->
+                    <li *ngIf='startTime.errors?.required' class='text-danger'>A Start Time Is Required</li>
+                </ul>
+            </div>            
+            <div class="col-md-4 mb-3"> <!-- Duration -->
+                <label for="duration">Duration :</label>
+                <input type="time" class="form-control" aria-describedby="duration" id="duration" 
+                    [class.is-invalid]='duration.invalid && duration.touched'
+                    [class.is-valid]='duration.valid && duration.touched'
+                    formControlName='duration' (blur)='calculateFinishTime(date.value, startTime.value, duration.value)'>
+                <ul *ngIf='duration.invalid && duration.touched'> <!-- error messages -->
+                    <li *ngIf='duration.errors?.required' class='text-danger'>A Duration Is Required</li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-row"><!-- event Type Finish Time Display Only-->
+            <div class="col-md-8 mb-3">
+                <label for="eventType">Event Type :</label>
                 <select class="form-control" id="eventType" formControlName='type' >
                     <option value='Birthday'>Birthday</option>
                     <option value='Karaoke'>Karaoke</option>
@@ -117,7 +95,12 @@
                     <option value='Kids'>Kids</option>
                     <option value='Other'>Other</option>
                 </select>
-            </div>            
+            </div>
+            <div class="col-md-4 mb-3"> <!-- Finish Time Display Only-->
+                <label for="finishTime">Finish Time :</label>
+                <input type="text" class="form-control" aria-describedby="finishTime" id="finishTime"
+                    formControlName='finishTime' readonly placeholder='Finish Time Of Event'>
+            </div> 
         </div>
         <h4>Facilities Required</h4>
         <div class="form-group row"> <!-- Song Book -->

@@ -24,6 +24,7 @@ export function randomChar(req){
         return numbers[Math.floor(Math.random() * 10)];
     }
 }
+// DATE STUFF
 export const  aDayIs = 86400000,
               aWeekIs = 604800000,
               Months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
@@ -45,4 +46,16 @@ export function DateValue(value:any):number{
     } else {
         return Date.parse(new Date(value).toDateString());
     }
+}
+export function CalculateFinishTime(date:String, start:String, duration:String):{date:String, time:String, value:number}{
+    if (date=='' || start=='' || duration=='') return {date:'', time:'', value:0}
+    
+    let d=date.split('-');
+    let t=start.split(':');
+    let u=duration.split(':');
+
+    let finish = new Date(new Date(parseInt(d[0]),parseInt(d[1])-1,parseInt(d[2]),parseInt(t[0]),parseInt(t[1]),0).valueOf()+
+                            parseInt(u[0])*3600000+parseInt(u[1])*60000)
+   
+    return {date:finish.toLocaleDateString(), time:finish.toLocaleTimeString(), value:finish.valueOf()}
 }
