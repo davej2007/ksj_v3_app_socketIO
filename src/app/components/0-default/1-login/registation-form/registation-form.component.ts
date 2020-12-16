@@ -82,7 +82,7 @@ export class RegistationFormComponent {
 
     )
   }
-
+  checkEventID(){}
   submit(registrationData:IREGISTRATIONDATA){
     this.disableForm();
     
